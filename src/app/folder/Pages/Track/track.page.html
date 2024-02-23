@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Track</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-input
+          label="Amount"
+          labelPlacement="stacked"
+          placeholder="Enter amount"
+          [(ngModel)]="amount"
+        >
+        </ion-input
+      ></ion-col>
+      <ion-col
+        ><ion-input
+          label="Current Amount"
+          labelPlacement="stacked"
+          placeholder="Enter current amount"
+          [(ngModel)]="currentAmount"
+        >
+        </ion-input
+      ></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="padding_8">
+    <div>
+      <ion-label
+        style="font-size: 20px; font-weight: bold"
+        [class.fontRed]="getChange() "
+        [class.fontGreen]="!getChange()"
+        slot="end"
+        >Out Standing : {{currentAmountChange}}</ion-label
+      >
+    </div>
+    <ion-button size="small" color="success" (click)="buttonClick('WIN')"
+      >WIN
+    </ion-button>
+    <ion-button size="small" color="danger" (click)="buttonClick('LOSS')"
+      >LOSS
+    </ion-button>
+    <ion-button size="small" color="medium" (click)="buttonClick('PUSH')"
+      >PUSH </ion-button
+    ><ion-button size="small" color="dark" (click)="double()"
+      >Double
+    </ion-button>
+    <ion-button size="small" color="warning" (click)="blackJack()"
+      >BJ
+    </ion-button>
+    <ion-button size="small" color="light" (click)="split()">Split </ion-button>
+    <ion-button size="small" color="secondary" (click)="IDAmount('ADD')"
+      >ADD
+    </ion-button>
+    <ion-button size="small" color="danger" (click)="IDAmount('REMOVE')"
+      >Remove
+    </ion-button>
+    <ion-button size="small" color="danger" (click)="addToStorage()"
+      >Add to storage
+    </ion-button>
+
+    <!-- <ion-button size="default" (click)="blackJack()"> Download </ion-button> -->
+  </div>
+  <div class="" *ngIf="splitArray.length !== 0">
+    <ion-list
+      *ngFor="let item of splitArray; index as i;"
+      class="margin_0 padding_0"
+    >
+      <ion-item>
+        <ion-label>{{i + 1}}</ion-label>
+        <ion-button
+          size="small"
+          color="success"
+          (click)="splitClick('WIN',item.id)"
+          >WIN
+        </ion-button>
+        <ion-button
+          size="small"
+          color="danger"
+          (click)="splitClick('LOSS',item.id)"
+          >LOSS
+        </ion-button>
+        <ion-button
+          size="small"
+          color="medium"
+          (click)="splitClick('PUSH',item.id)"
+          >PUSH </ion-button
+        ><ion-button size="small" color="dark" (click)="SplitDouble(item.id)"
+          >Double
+        </ion-button>
+        <ion-button
+          size="small"
+          color="warning"
+          (click)="splitBlackJack(item.id)"
+          >BJ
+        </ion-button>
+        <!-- <ion-button size="small" color="danger" (click)="splitDelete(item.id)"
+          >Remove
+        </ion-button> -->
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-list
+    [inset]="true"
+    *ngFor="let item of traceListReverse; index as i;"
+    class="margin_8"
+  >
+    <ion-item
+      [class.green]="item.type === 'WIN'"
+      [class.red]="item.type === 'LOSS'"
+      [class.dark]="item.type === 'DOUBLE'"
+      [class.yellow]="item.type === 'BJ'"
+      [class.push]="item.type === 'PUSH'"
+    >
+      <ion-label>{{item.index + 1}}</ion-label>
+      <ion-label>{{item.count}}</ion-label>
+      <ion-label>{{item.type}}</ion-label>
+      <ion-label>{{item.amount}}</ion-label>
+      <ion-label slot="end">{{getAmount(item.lp)}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Daily Track</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true" *ngFor="let item of dailytrack; index as i;">
+    <ion-item>
+      <ion-label>{{item.date}}</ion-label>
+      <ion-label>{{item.time}}</ion-label>
+      <ion-label>{{getAmount(item.amount)}}</ion-label>
+      <ion-button size="small" color="danger" (click)="removeItem(item.id)"
+        ><ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title [class.red]="getColor(totalAmount)"
+      >Total : {{totalAmount}}</ion-title
+    >
+  </ion-toolbar>
+</ion-footer>

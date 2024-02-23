@@ -1,0 +1,81 @@
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.padding_8 {
+  padding: 8px;
+}
+
+
+ion-item.red {
+  border: 1px solid #eb445a;
+  border-radius: 4px;
+}
+
+ion-item.green {
+  border: 1px solid #2dd36f;
+  border-radius: 4px;
+}
+
+
+ion-item.yellow {
+  border: 1px solid #def132;
+  border-radius: 4px;
+}
+
+
+ion-item.dark {
+  border: 1px solid #37413b;
+  border-radius: 4px;
+}
+
+
+ion-item.push {
+  border: 1px solid #92949c;
+  border-radius: 4px;
+}
+
+.fontRed {
+  color: #eb445a;
+}
+
+.fontGreen {
+  color: greenyellow;
+}
+
+ion-list.margin_8 {
+  margin: 8px !important;
+}
+
+ion-list.margin_0  {
+  margin: 0 !important;
+}
+
+ion-list.padding_0 {
+  padding: 0 !important;
+}

@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Basic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header> <ion-card-title>Guess</ion-card-title> </ion-card-header
+    ><ion-card-content>
+      <div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{numberOne}}</ion-col>
+            <ion-col>{{numberTwo}}</ion-col>
+            <ion-col>
+              <ion-button
+                size="small"
+                color="secondary"
+                (click)="refreshClick()"
+                >Refresh</ion-button
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>RESULT : {{resultTrueFalse}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="buttonPadding">
+        <ion-button size="small" color="danger" (click)="calculate('STAND')">
+          STAND
+        </ion-button>
+        <ion-button size="small" color="warning" (click)="calculate('DOUBLE')">
+          DOUBLE
+        </ion-button>
+        <ion-button size="small" color="success" (click)="calculate('HIT')">
+          HIT
+        </ion-button>
+        <ion-button size="small" color="primary" (click)="calculate('SPLIT')">
+          SPLIT
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

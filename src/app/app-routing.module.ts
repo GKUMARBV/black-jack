@@ -4,19 +4,36 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    redirectTo: 'Track',
+    pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  }
+    path: 'Track',
+    loadChildren: () =>
+      import('./folder/Pages/Track/track.module').then(
+        (m) => m.TrackPageModule
+      ),
+  },
+  {
+    path: 'Basic',
+    loadChildren: () =>
+      import('./folder/Pages/Basic/basic.module').then(
+        (m) => m.BasicPageModule
+      ),
+  },
+  {
+    path: 'daily-track',
+    loadChildren: () =>
+      import('./folder/Pages/daily-track/daily-track.module').then(
+        (m) => m.DailyTrackPageModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
