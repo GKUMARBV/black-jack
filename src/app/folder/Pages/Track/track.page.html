@@ -75,33 +75,21 @@
     >
       <ion-item>
         <ion-label>{{i + 1}}</ion-label>
-        <ion-button
-          size="small"
-          color="success"
-          (click)="splitClick('WIN',item.id)"
+        <ion-button size="small" color="success" (click)="splitClick('WIN',i)"
           >WIN
         </ion-button>
-        <ion-button
-          size="small"
-          color="danger"
-          (click)="splitClick('LOSS',item.id)"
+        <ion-button size="small" color="danger" (click)="splitClick('LOSS',i)"
           >LOSS
         </ion-button>
-        <ion-button
-          size="small"
-          color="medium"
-          (click)="splitClick('PUSH',item.id)"
+        <ion-button size="small" color="medium" (click)="splitClick('PUSH',i)"
           >PUSH </ion-button
-        ><ion-button size="small" color="dark" (click)="SplitDouble(item.id)"
+        ><ion-button size="small" color="dark" (click)="SplitDouble(i)"
           >Double
         </ion-button>
-        <ion-button
-          size="small"
-          color="warning"
-          (click)="splitBlackJack(item.id)"
+        <ion-button size="small" color="warning" (click)="splitBlackJack(i)"
           >BJ
         </ion-button>
-        <!-- <ion-button size="small" color="danger" (click)="splitDelete(item.id)"
+        <!-- <ion-button size="small" color="danger" (click)="splitDelete(i)"
           >Remove
         </ion-button> -->
       </ion-item>
@@ -118,6 +106,11 @@
       [class.dark]="item.type === 'DOUBLE'"
       [class.yellow]="item.type === 'BJ'"
       [class.push]="item.type === 'PUSH'"
+      [class.green]="item.type === 'SP WIN'"
+      [class.red]="item.type === 'SP LOSS'"
+      [class.dark]="item.type === 'SP DOUBLE'"
+      [class.yellow]="item.type === 'SP BJ'"
+      [class.push]="item.type === 'SP PUSH'"
     >
       <ion-label>{{item.index + 1}}</ion-label>
       <ion-label>{{item.count}}</ion-label>

@@ -19,6 +19,7 @@ export class TrackPage implements OnInit {
   public currentAmount: any = 50000;
   public currentAmountChange: any = 0;
   public count: any = 0;
+  public doubleType: any = '';
   splitArray: any = [];
 
   constructor() {}
@@ -29,7 +30,7 @@ export class TrackPage implements OnInit {
 
   getType = (type: any) => {
     if (this.doubleValue) {
-      return 'DOUBLE';
+      return this.doubleType ? this.doubleType : 'DOUBLE';
     } else {
       return type;
     }
@@ -102,6 +103,7 @@ export class TrackPage implements OnInit {
     let currentArray = this.tractList;
     this.traceListReverse = [].concat(currentArray).reverse();
     this.doubleValue = false;
+    this.doubleType = '';
     this.currentAmountChange =
       Number(this.currentAmount) +
       Number(
@@ -208,11 +210,130 @@ export class TrackPage implements OnInit {
     this.splitArray.push(this.amount);
   }
 
-  splitClick(type: any, id: any) {}
+  splitClick(type: any, i: any) {
+    this.count = this.count + 1;
+    let currentAmount = this.amount;
+    if (this.doubleValue) {
+      currentAmount = currentAmount * 2;
+    }
+    let lastAmount =
+      this.tractList[this.tractList.length - 1] &&
+      this.tractList[this.tractList.length - 1]['lp']
+        ? this.tractList[this.tractList.length - 1]['lp']
+        : 0;
+    if (this.lastType == type) {
+      this.currentIndex = this.currentIndex + 1;
+    } else {
+      this.currentIndex = 1;
+    }
+    this.lastType = type;
+    if (type == 'WIN') {
+      let cal = Number(lastAmount) + Number(currentAmount);
+      this.tractList.push({
+        index: this.tractList.length,
+        type: this.getType('SP WIN'),
+        amount: this.amount,
+        lp: cal,
+        count: this.currentIndex,
+      });
+      this.amount =
+        this.tractList[this.tractList.length - 1] &&
+        this.tractList[this.tractList.length - 1]['amount']
+          ? Number(this.tractList[this.tractList.length - 1]['amount'])
+            ? Number(this.tractList[this.tractList.length - 1]['amount'])
+            : 500
+          : 500;
+    } else if (type == 'LOSS') {
+      let cal = Number(lastAmount) - Number(currentAmount);
+      let initialValue = -500;
+      if (this.doubleValue) {
+        initialValue = initialValue * 2;
+      }
+      this.tractList.push({
+        index: this.tractList.length,
+        type: this.getType('SP LOSS'),
+        amount: this.amount,
+        lp: cal ? cal : initialValue,
+        count: this.currentIndex,
+      });
+      this.amount =
+        this.tractList[this.tractList.length - 1] &&
+        this.tractList[this.tractList.length - 1]['amount']
+          ? Number(this.tractList[this.tractList.length - 1]['amount'])
+          : 500;
+    } else if (type == 'PUSH') {
+      this.tractList.push({
+        index: this.tractList.length,
+        type: this.getType('SP PUSH'),
+        amount: this.amount,
+        lp: lastAmount,
+        count: this.currentIndex,
+      });
+    }
+    let currentArray = this.tractList;
+    this.traceListReverse = [].concat(currentArray).reverse();
+    this.doubleValue = false;
+    this.currentAmountChange =
+      Number(this.currentAmount) +
+      Number(
+        this.tractList[this.tractList.length - 1] &&
+          this.tractList[this.tractList.length - 1]['lp']
+          ? this.tractList[this.tractList.length - 1]['lp']
+          : 0
+      );
+    const splitArrayFilter = this.splitArray.filter((el: any, index: any) => {
+      if (index != i) {
+        return el;
+      }
+    });
+    this.splitArray = splitArrayFilter;
+  }
 
   splitDelete(id: any) {}
 
-  SplitDouble(id: any) {}
+  SplitDouble(id: any) {
+    this.doubleValue = true;
+    this.doubleType = 'SP DOUBLE';
+  }
 
-  splitBlackJack(id: any) {}
+  splitBlackJack(i: any) {
+    this.count = this.count + 1;
+    let currentAmount = this.amount * 1.5;
+    let lastAmount =
+      this.tractList[this.tractList.length - 1] &&
+      this.tractList[this.tractList.length - 1]['lp']
+        ? this.tractList[this.tractList.length - 1]['lp']
+        : 0;
+    let cal = Number(lastAmount) + Number(currentAmount);
+    this.tractList.push({
+      index: this.tractList.length,
+      type: 'SP BJ',
+      amount: this.amount,
+      lp: cal,
+      count: this.currentIndex,
+    });
+    this.amount =
+      this.tractList[this.tractList.length - 1] &&
+      this.tractList[this.tractList.length - 1]['amount']
+        ? Number(this.tractList[this.tractList.length - 1]['amount']) - 500
+          ? Number(this.tractList[this.tractList.length - 1]['amount']) - 500
+          : 500
+        : 500;
+    let currentArray = this.tractList;
+    this.traceListReverse = [].concat(currentArray).reverse();
+    this.currentAmountChange =
+      Number(this.currentAmount) +
+      Number(
+        this.tractList[this.tractList.length - 1] &&
+          this.tractList[this.tractList.length - 1]['lp']
+          ? this.tractList[this.tractList.length - 1]['lp']
+          : 0
+      );
+    const splitArrayFilter = this.splitArray.filter((el: any, index: any) => {
+      if (index != i) {
+        return el;
+      }
+    });
+    this.splitArray = splitArrayFilter;
+  }
 }
